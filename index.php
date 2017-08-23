@@ -12,7 +12,7 @@
 	$temp = 0; // временное хранилище для раздачи
 	$cnt_bone = 28;
 
-	$table = [];
+	$table = []; // массив стола
 	$left_bone = -1;
 	$right_bone = -1;
 
@@ -37,7 +37,7 @@
 
 	// первый ход
 	$baza[$last_bone][2] = -1;
-	$table = [ $baza[$last_bone][0], $baza[$last_bone][1] ];
+	$table[] = [ $baza[$last_bone][0], $baza[$last_bone][1] ];
 	// запомнили крайние цифры
 	$left_bone = $baza[$last_bone][0];
 	$right_bone = $baza[$last_bone][1];
@@ -51,25 +51,28 @@
 		// если нет кости у игрока
 		if ( count($access_bones) == 0 ) {
 			
-			if  ( count($bazar_bones) == 0 ) { 
-				// передаем ход следующему
-				$next_gamer = next_gamer($next_gamer);
-		
-			} else {
-				// берем кость на базаре
+			search_bone_in_bazar();
+
+			if  ( count($bazar_bones) != 0 ) { 
+			 	// берем кость на базаре
 				get_bone_from_bazar();
 			}
 		// есть подходящая кость для игры
+		
 		} else {
 			// берем случайную кость из доступных
 			$elem = rand(0, count($access_bones)-1);
 			// убираем с базы (у игрока)
-			$baza[ $access_bones[$elem][2] ][2] = -1;
+			$buffer_bone = $access_bones[$elem][2];
+			$baza[ $buffer_bone ][2] = -1;
 			// ложим кость на стол
-
+			$table[] = [ $baza[ $buffer_bone ][0], $baza[ $buffer_bone ][1] ];
 		}
 
 		check_cnt_bone_in_user();
+
+		// передаем ход следующему
+		$next_gamer = next_gamer($next_gamer);
 	}
 
 	echo "<br><h2>ИГРА ЗАКОНЧЕНА !</h2>";
@@ -77,7 +80,7 @@
 	// array_unshift()
 ?>
 
-<h2>============== подходящие кости текущего игрока =============</h2>
+<h2>============== подходящие кости у текущего игрока =============</h2>
 <pre>
 <?php  print_r($access_bones);?>
 <br>

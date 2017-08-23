@@ -47,30 +47,32 @@
 	function check_cnt_bone_in_user () {
 		global $baza, $cnt_bone, $next_gamer, $end_game;
 
+		$end_game = true;
+
 		for ($i = 0; $i < $cnt_bone; $i++) {
 			if ( $baza[$i][2] == $next_gamer ) {
 				$end_game = false;
 				break;
 			}
 		}
-		$end_game = true;
+
 	}
 	
 
-	// function search_bone_in_bazar () {
+	function search_bone_in_bazar () {
 
-	// 	global $baza, $cnt_bone, $bazar_bones;
-	// 	$bazar_bones = [];
+		global $baza, $cnt_bone, $bazar_bones;
+		$bazar_bones = [];
 
-	// 		for ($i = 0; $i < $cnt_bone; $i++) {
+			for ($i = 0; $i < $cnt_bone; $i++) {
 
-	// 			if ( $baza[$i][2] == 0 ) {
-	// 				$bazar_bones[$i] = $baza[$i];
-	// 			}
+				if ( $baza[$i][2] == 0 ) {
+					$bazar_bones[$i] = $baza[$i];
+				}
 
-	// 		}
+			}
 
-	// }
+	}
 
 
 	function next_gamer ( $gamer_num ) {
