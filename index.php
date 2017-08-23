@@ -61,19 +61,19 @@
 			}
 		// есть подходящая кость для игры
 		} else {
+			// берем случайную кость из доступных
 			$elem = rand(0, count($access_bones)-1);
+			// убираем с базы (у игрока)
 			$baza[ $access_bones[$elem][2] ][2] = -1;
+			// ложим кость на стол
+
 		}
 
 		check_cnt_bone_in_user();
 	}
 
 	echo "<br><h2>ИГРА ЗАКОНЧЕНА !</h2>";
-	
-
 	// echo "<br> ==>> " .  rand(0, count($access_bones)-1 );
-	
-
 	// array_unshift()
 ?>
 
@@ -99,7 +99,7 @@
 
 	// $fn = 0;
 	// $sn = 0;
-	
+
 	// for ($i=0; $i<28; $i++) {
 
 	// 	$baza[$i][0] = $fn;
