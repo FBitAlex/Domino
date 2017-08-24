@@ -24,18 +24,78 @@
 			}
 	}
 
+	function search_bone_in_gamers () {
+		global $baza, $cnt_bone, $left_bone, $right_bone, $next_gamer, $access_bones;
+		$access_bones = [];
+
+			for ($i = 0; $i < $cnt_bone; $i++) {
+
+				if (	$baza[$i][2] != -1  &&
+
+						($baza[$i][0] 	== $left_bone ||
+						$baza[$i][1] 	== $left_bone ||
+						$baza[$i][0] 	== $right_bone || 
+						$baza[$i][1] 	== $right_bone)
+					) {
+					return 1;
+				}
+			}
+		return 0;
+	}
+
+
+
+	// function search_for_fish () {
+	// 	global $baza, $cnt_bone, $left_bone, $right_bone, $next_gamer, $access_bones;
+	// 	$access_bones = [];
+
+	// 		for ($i = 0; $i < $cnt_bone; $i++) {
+
+	// 			if (	$baza[$i][2] == 0  &&
+
+	// 					($baza[$i][0] == $left_bone ||
+	// 					$baza[$i][1] == $left_bone ||
+	// 					$baza[$i][0] == $right_bone || 
+	// 					$baza[$i][1] == $right_bone)
+	// 				) {
+	// 				return 1;
+	// 			}
+	// 		}
+	// 	return 0;
+	// }
+
+	// function get_bone_from_bazar () {
+
+	// 	global $baza, $cnt_bone, $next_gamer;
+	// 		for ($i = 0; $i < $cnt_bone; $i++) {
+
+	// 			if ( $baza[$i][2] == 0 ) {
+	// 				$baza[$i][2] = $next_gamer;
+	// 				echo "<br> $next_gamer  =>  [" . $baza[$i][0] . " | ". $baza[$i][1] . "] - Взял";
+	// 				break;
+	// 			}
+
+	// 		}
+	// }
+
 	function get_bone_from_bazar () {
 
 		global $baza, $cnt_bone, $next_gamer;
-			for ($i = 0; $i < $cnt_bone; $i++) {
+		$arr = [];
 
-				if ( $baza[$i][2] == 0 ) {
-					$baza[$i][2] = $next_gamer;
-					break;
-				}
-
+		for ($i = 0; $i < $cnt_bone; $i++) {
+			if ( $baza[$i][2] == 0 ) {
+				$arr[] = $i;
 			}
+		}
+
+		$num = rand(0, count($arr)-1);
+		$baza [ $arr[$num] ][2] = $next_gamer;
+
+		echo "<br> $next_gamer  =>  [" . $baza[ $arr[$num] ][0] . " | ". $baza[ $arr[$num] ][1] . "] - Взял";
 	}
+
+
 
 
 	function check_cnt_bone_in_user () {

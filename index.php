@@ -20,6 +20,7 @@
 	$access_bones = [];
 	$go_game = true;
 
+
 	// инициализация базы
 	for ($i = 0; $i < $cnt_bone; $fn++) {
 		for ($sn = $fn; $sn <= 6 ; $sn++, $i++) { 
@@ -50,13 +51,14 @@ show_result();
 	//show_result();
 	$next_gamer = next_gamer($first_gamer);
 	$go_to_bazar = false;
+
 	while ( $go_game ) {
 
 		// поиск кости у игрока для хода - заполняет $access_bones
 		search_bone_in_gamer();
 
 		// если нет кости у игрока
-		if ( count($access_bones) == 0 ) {
+		if ( count($access_bones) == 0) {
 			
 			// заполняем базар ($bazar_bones)
 			search_bone_in_bazar();
@@ -67,8 +69,8 @@ show_result();
 				$go_to_bazar = true;
 				continue;
 			}
+
 		// есть подходящая кость для игры
-		
 		} else {
 			// берем случайную кость из доступных
 			$elem = rand(0, count($access_bones)-1);
@@ -104,25 +106,35 @@ show_result();
 		}
 
 		check_cnt_bone_in_user();
-
+		// check_for_fish();
+		if ( !search_bone_in_gamers() || !$go_game) {
+			if ( !$go_game ) {
+				echo "<br><h2>ИГРА ЗАКОНЧЕНА !  Победил Игрок № $next_gamer</h2>";
+			} else {
+				echo "<br><h2>РЫБА! ИГРА ЗАКОНЧЕНА!</h2>";
+			}
+			break;
+		}
 		// передаем ход следующему
 		$next_gamer = next_gamer($next_gamer);
 		// break;
-	}
+	} // end while
 
-	echo "<br><h2>ИГРА ЗАКОНЧЕНА !</h2>";
+
+	
 	// echo "<br> ==>> " .  rand(0, count($access_bones)-1 );
 	// array_unshift()
 
 
-	// echo "=== доступны кости ====";
+	// echo "<br>=== ДОСТУПНЫ КОСТИ ====";
 	// $echo_str = '<br>';
-	// for ( $i=0; $i < count($access_bones); $i++ ) {
-	// 	$echo_str .= "-[ " .$access_bones[$i][0] ." | ". $access_bones[$i][1] . " ]-";
+	// for ( $i=0; $i < count($baza); $i++ ) {
+	// 	$bz = ($baza[$i][2] == -1) ? "X" : $baza[$i][2];
+	// 	$echo_str .= "<br>[ " .$baza[$i][0] ." | ". $baza[$i][1] . " ] => ". $bz;
 	// }
 	// echo $echo_str;
 
-	echo "<strong>=== СТОЛ ====</strong>";
+	echo "<br><br><strong>=== СТОЛ ====</strong>";
 	$echo_str = '<br>';
 	$j = 0;
 	for ( $i=0; $i < count($table); $i++ ) {
@@ -137,6 +149,30 @@ show_result();
 	$j = 0;
 	for ( $i=0; $i < count($baza); $i++ ) {
 		if ( $baza[$i][2] == 0 ) {
+			$j++;
+			$echo_str .= "<br>[ " .$baza[$i][0] ." | ". $baza[$i][1] . " ]";
+		}
+	}
+	echo "<br>Всего => ".$j;
+	echo $echo_str;
+
+	echo "<strong><br><br>=== 1 ИГРОК ====</strong>";
+	$echo_str = '<br>';
+	$j = 0;
+	for ( $i=0; $i < count($baza); $i++ ) {
+		if ( $baza[$i][2] == 1 ) {
+			$j++;
+			$echo_str .= "<br>[ " .$baza[$i][0] ." | ". $baza[$i][1] . " ]";
+		}
+	}
+	echo "<br>Всего => ".$j;
+	echo $echo_str;
+
+	echo "<strong><br><br>=== 2 ИГРОК ====</strong>";
+	$echo_str = '<br>';
+	$j = 0;
+	for ( $i=0; $i < count($baza); $i++ ) {
+		if ( $baza[$i][2] == 2 ) {
 			$j++;
 			$echo_str .= "<br>[ " .$baza[$i][0] ." | ". $baza[$i][1] . " ]";
 		}
