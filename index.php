@@ -49,7 +49,7 @@ show_result();
 
 	//show_result();
 	$next_gamer = next_gamer($first_gamer);
-
+	$go_to_bazar = false;
 	while ( $go_game ) {
 
 		// поиск кости у игрока для хода - заполняет $access_bones
@@ -64,6 +64,7 @@ show_result();
 			if  ( count($bazar_bones) != 0 ) { 
 			 	// берем кость на базаре
 				get_bone_from_bazar();
+				$go_to_bazar = true;
 				continue;
 			}
 		// есть подходящая кость для игры
@@ -79,20 +80,24 @@ show_result();
 			if ( $left_bone == $baza[ $buffer_bone ][0] ) {
 				array_unshift($table, [ $baza[ $buffer_bone ][1], $baza[ $buffer_bone ][0] ] );
 				echo "<br> $next_gamer  =>  [" . $baza[ $buffer_bone ][1] . " | ". $baza[ $buffer_bone ][0] . "]";
+				echo ($go_to_bazar) ? " - С БАЗАРА" : "";
 
 			} else if ( $left_bone == $baza[ $buffer_bone ][1] ) {
 				array_unshift($table, [ $baza[ $buffer_bone ][0], $baza[ $buffer_bone ][1] ] );
 				echo "<br> $next_gamer  =>  [" . $baza[ $buffer_bone ][0] . " | ". $baza[ $buffer_bone ][1] . "]";
+				echo ($go_to_bazar) ? " - С БАЗАРА" : "";
 			
 			} else if ( $right_bone == $baza[ $buffer_bone ][0] ) {
 				$table[] = [ $baza[ $buffer_bone ][0], $baza[ $buffer_bone ][1] ];
 				echo "<br> $next_gamer  =>  [" . $baza[ $buffer_bone ][0] . " | ". $baza[ $buffer_bone ][1] . "]";
+				echo ($go_to_bazar) ? " - С БАЗАРА" : "";
 			
 			} else if ( $right_bone == $baza[ $buffer_bone ][1] ) {
 				$table[] = [ $baza[ $buffer_bone ][1], $baza[ $buffer_bone ][0] ];
 				echo "<br> $next_gamer  =>  [" . $baza[ $buffer_bone ][1] . " | ". $baza[ $buffer_bone ][0] . "]";
+				echo ($go_to_bazar) ? " - С БАЗАРА" : "";
 			}				
-			
+			$go_to_bazar = false;
 			// запомнили крайние цифры
 			$left_bone = $table[0][0];
 			$right_bone = $table[ count($table)-1 ][1];
