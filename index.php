@@ -5,7 +5,6 @@
 
 	$last_bone = -1;
 	$first_gamer = 0; // кто первый ходит
-
 	$fn = 0;
 	$sn = 0;
 	$gamers = 2; // количество игроков
@@ -19,6 +18,7 @@
 	$bazar = $cnt_bone - ($gamers * 7);
 	$bazar_bones = [];
 	$access_bones = [];
+	$is_end_game = false;
 
 	// инициализация базы
 	for ($i = 0; $i < $cnt_bone; $fn++) {
@@ -45,17 +45,23 @@
 	show_result();
 	$next_gamer = next_gamer($first_gamer);
 
-	while ( !$end_game ) {
+	$ch = 0;
+	while ( ($ch < 100) ) {
+		$ch++;
+
+		// поиск кости у игрока для хода - заполняет $access_bones
 		search_bone_in_gamer();
 
 		// если нет кости у игрока
 		if ( count($access_bones) == 0 ) {
 			
+			// заполняем базар ($bazar_bones)
 			search_bone_in_bazar();
 
 			if  ( count($bazar_bones) != 0 ) { 
 			 	// берем кость на базаре
 				get_bone_from_bazar();
+				continue;
 			}
 		// есть подходящая кость для игры
 		
@@ -65,20 +71,39 @@
 			// убираем с базы (у игрока)
 			$buffer_bone = $access_bones[$elem][2];
 			$baza[ $buffer_bone ][2] = -1;
+			
 			// ложим кость на стол
-			$table[] = [ $baza[ $buffer_bone ][0], $baza[ $buffer_bone ][1] ];
+			if ( $left_bone == $baza[ $buffer_bone ][0] ) {
+				array_unshift($table, [ $baza[ $buffer_bone ][1], $baza[ $buffer_bone ][0] ] );
+
+			} else if ( $left_bone == $baza[ $buffer_bone ][1] ) {
+				array_unshift($table, [ $baza[ $buffer_bone ][0], $baza[ $buffer_bone ][1] ] );
+			
+			} else if ( $right_bone == $baza[ $buffer_bone ][0] ) {
+				$table[] = [ $baza[ $buffer_bone ][0], $baza[ $buffer_bone ][1] ];
+			
+			} else if ( $right_bone == $baza[ $buffer_bone ][1] ) {
+				$table[] = [ $baza[ $buffer_bone ][1], $baza[ $buffer_bone ][0] ];
+			}				
+			
+			// запомнили крайние цифры
+			$left_bone = $table[0][0];
+			$right_bone = $table[ count($table)-1 ][1];
 		}
 
 		check_cnt_bone_in_user();
 
 		// передаем ход следующему
 		$next_gamer = next_gamer($next_gamer);
+		// break;
 	}
 
 	echo "<br><h2>ИГРА ЗАКОНЧЕНА !</h2>";
 	// echo "<br> ==>> " .  rand(0, count($access_bones)-1 );
 	// array_unshift()
+
 ?>
+
 
 <h2>============== подходящие кости у текущего игрока =============</h2>
 <pre>

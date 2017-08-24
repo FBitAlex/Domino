@@ -20,17 +20,14 @@
 						$baza[$i][1],
 						$i
 					];
-
-
 				}
 
 			}
-
 	}
 
 	function get_bone_from_bazar () {
 
-		global $baza, $cnt_bone, $bazar_bone, $next_gamer;
+		global $baza, $cnt_bone, $next_gamer;
 
 			for ($i = 0; $i < $cnt_bone; $i++) {
 
@@ -40,18 +37,17 @@
 				}
 
 			}
-
 	}
 
 
 	function check_cnt_bone_in_user () {
 		global $baza, $cnt_bone, $next_gamer, $end_game;
-
-		$end_game = true;
-
+		
+		$is_end_game = true;
+		
 		for ($i = 0; $i < $cnt_bone; $i++) {
 			if ( $baza[$i][2] == $next_gamer ) {
-				$end_game = false;
+				$is_end_game = false;
 				break;
 			}
 		}
@@ -60,7 +56,6 @@
 	
 
 	function search_bone_in_bazar () {
-
 		global $baza, $cnt_bone, $bazar_bones;
 		$bazar_bones = [];
 
