@@ -44,10 +44,12 @@ show_result();
 	$left_bone = $baza[$last_bone][0];
 	$right_bone = $baza[$last_bone][1];
 
+	echo "<strong><br>==== ОЧЕРЕДНОСТЬ ХОДОВ ==== <br></strong>";
+	echo "<br> $first_gamer  =>  [" . $baza[ $last_bone ][0] . " | ". $baza[ $last_bone ][1] . "]";
+
 	//show_result();
 	$next_gamer = next_gamer($first_gamer);
 
-	echo "<strong><br>==== ОЧЕРЕДНОСТЬ ХОДОВ ==== <br></strong>";
 	while ( $go_game ) {
 
 		// поиск кости у игрока для хода - заполняет $access_bones
