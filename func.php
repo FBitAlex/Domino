@@ -2,7 +2,6 @@
 
 	// поиск кости у игрока для хода
 	function search_bone_in_gamer () {
-
 		global $baza, $cnt_bone, $left_bone, $right_bone, $next_gamer, $access_bones;
 		$access_bones = [];
 
@@ -28,7 +27,6 @@
 	function get_bone_from_bazar () {
 
 		global $baza, $cnt_bone, $next_gamer;
-
 			for ($i = 0; $i < $cnt_bone; $i++) {
 
 				if ( $baza[$i][2] == 0 ) {
@@ -41,13 +39,13 @@
 
 
 	function check_cnt_bone_in_user () {
-		global $baza, $cnt_bone, $next_gamer, $end_game;
+		global $baza, $cnt_bone, $next_gamer, $go_game;
 		
-		$is_end_game = true;
+		$go_game = false;
 		
 		for ($i = 0; $i < $cnt_bone; $i++) {
 			if ( $baza[$i][2] == $next_gamer ) {
-				$is_end_game = false;
+				$go_game = true;
 				break;
 			}
 		}
@@ -78,7 +76,6 @@
 	function show_result () {
 		global $gamers, $baza, $cnt_bone;
 
-		echo "<br>RESULT: <br>";
 		for ($g = 1; $g <= $gamers; $g++) {
 			$str = '<br>';
 			for ($i = 0; $i < $cnt_bone; $i++) {

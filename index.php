@@ -18,7 +18,7 @@
 	$bazar = $cnt_bone - ($gamers * 7);
 	$bazar_bones = [];
 	$access_bones = [];
-	$is_end_game = false;
+	$go_game = true;
 
 	// инициализация базы
 	for ($i = 0; $i < $cnt_bone; $fn++) {
@@ -45,9 +45,7 @@
 	show_result();
 	$next_gamer = next_gamer($first_gamer);
 
-	$ch = 0;
-	while ( ($ch < 100) ) {
-		$ch++;
+	while ( $go_game ) {
 
 		// поиск кости у игрока для хода - заполняет $access_bones
 		search_bone_in_gamer();
