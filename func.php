@@ -85,7 +85,7 @@
 				}
 
 			}
-			echo "Gamer $g => " . $str . "<br><br>";
+			echo "<br>Gamer $g => " . $str . "<br>";
 		}
 	}
 
@@ -148,7 +148,7 @@
 					}
 					
 				}
-				echo $str . "<br><br>";
+				//echo $str . "<br><br>";
 			//}
 		}
 

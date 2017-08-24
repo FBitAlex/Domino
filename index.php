@@ -35,6 +35,8 @@
 
 	// echo "<br> next => " . next_gamer($first_gamer);
 
+show_result();
+
 	// первый ход
 	$baza[$last_bone][2] = -1;
 	$table[] = [ $baza[$last_bone][0], $baza[$last_bone][1] ];
@@ -42,9 +44,10 @@
 	$left_bone = $baza[$last_bone][0];
 	$right_bone = $baza[$last_bone][1];
 
-	show_result();
+	//show_result();
 	$next_gamer = next_gamer($first_gamer);
 
+	echo "<strong><br>==== ОЧЕРЕДНОСТЬ ХОДОВ ==== <br></strong>";
 	while ( $go_game ) {
 
 		// поиск кости у игрока для хода - заполняет $access_bones
@@ -73,15 +76,19 @@
 			// ложим кость на стол
 			if ( $left_bone == $baza[ $buffer_bone ][0] ) {
 				array_unshift($table, [ $baza[ $buffer_bone ][1], $baza[ $buffer_bone ][0] ] );
+				echo "<br> $next_gamer  =>  [" . $baza[ $buffer_bone ][1] . " | ". $baza[ $buffer_bone ][0] . "]";
 
 			} else if ( $left_bone == $baza[ $buffer_bone ][1] ) {
 				array_unshift($table, [ $baza[ $buffer_bone ][0], $baza[ $buffer_bone ][1] ] );
+				echo "<br> $next_gamer  =>  [" . $baza[ $buffer_bone ][0] . " | ". $baza[ $buffer_bone ][1] . "]";
 			
 			} else if ( $right_bone == $baza[ $buffer_bone ][0] ) {
 				$table[] = [ $baza[ $buffer_bone ][0], $baza[ $buffer_bone ][1] ];
+				echo "<br> $next_gamer  =>  [" . $baza[ $buffer_bone ][0] . " | ". $baza[ $buffer_bone ][1] . "]";
 			
 			} else if ( $right_bone == $baza[ $buffer_bone ][1] ) {
 				$table[] = [ $baza[ $buffer_bone ][1], $baza[ $buffer_bone ][0] ];
+				echo "<br> $next_gamer  =>  [" . $baza[ $buffer_bone ][1] . " | ". $baza[ $buffer_bone ][0] . "]";
 			}				
 			
 			// запомнили крайние цифры
@@ -100,27 +107,40 @@
 	// echo "<br> ==>> " .  rand(0, count($access_bones)-1 );
 	// array_unshift()
 
-?>
+
+	// echo "=== доступны кости ====";
+	// $echo_str = '<br>';
+	// for ( $i=0; $i < count($access_bones); $i++ ) {
+	// 	$echo_str .= "-[ " .$access_bones[$i][0] ." | ". $access_bones[$i][1] . " ]-";
+	// }
+	// echo $echo_str;
+
+	echo "<strong>=== СТОЛ ====</strong>";
+	$echo_str = '<br>';
+	$j = 0;
+	for ( $i=0; $i < count($table); $i++ ) {
+		$j++;
+		$echo_str .= "<br>[ " .$table[$i][0] ." | ". $table[$i][1] . " ]";
+	}
+	echo "<br>Всего => ".$j;
+	echo $echo_str;
+
+	echo "<strong><br><br>=== БАЗАР ====</strong>";
+	$echo_str = '<br>';
+	$j = 0;
+	for ( $i=0; $i < count($baza); $i++ ) {
+		if ( $baza[$i][2] == 0 ) {
+			$j++;
+			$echo_str .= "<br>[ " .$baza[$i][0] ." | ". $baza[$i][1] . " ]";
+		}
+	}
+	echo "<br>Всего => ".$j;
+	echo $echo_str;
 
 
-<h2>============== подходящие кости у текущего игрока =============</h2>
-<pre>
-<?php  print_r($access_bones);?>
-<br>
-<br>
+	// print_r($baza);
 
-<h2>============== стол =============</h2>
-<pre>
-<?php  print_r($table);?>
-<br>
-<br>
 
-<h2>============== БАЗА =============</h2>
-<br>
-	<?php  print_r($baza);?>
-</pre>
-
-<?
 	// $baza
 
 	// $fn = 0;
